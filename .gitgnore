@@ -1,0 +1,72 @@
+# ===============================
+# Python virtual environments
+# ===============================
+venv/
+backend/venv/
+.env
+.env.*
+
+# ===============================
+# Python cache / compiled files
+# ===============================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ===============================
+# Flask / Python runtime files
+# ===============================
+instance/
+*.log
+
+# ===============================
+# HuggingFace / Transformers cache
+# (VERY important – models are huge)
+# ===============================
+.cache/
+.cache/*
+huggingface/
+hf_cache/
+transformers_cache/
+
+# ===============================
+# PyTorch cache
+# ===============================
+torch_cache/
+*.pt
+
+# ===============================
+# OS-specific files
+# ===============================
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# ===============================
+# IDE / Editor settings
+# ===============================
+.vscode/
+.idea/
+*.iml
+
+# ===============================
+# Jupyter / experiments (if any)
+# ===============================
+.ipynb_checkpoints/
+
+# ===============================
+# Node / Chrome extension (later)
+# ===============================
+node_modules/
+dist/
+build/
+
+# ===============================
+# Secrets / config
+# ===============================
+*.key
+*.pem
+*.secret
