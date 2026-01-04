@@ -7,8 +7,11 @@ from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api.formatters import TextFormatter
 
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+CORS(app)
 app.json.ensure_ascii = False  # keep Unicode like ♪
 
 
