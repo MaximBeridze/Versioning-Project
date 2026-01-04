@@ -27,11 +27,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // 3) Now request summary generation
-    chrome.tabs.sendMessage(tab.id, { action: "generate" }, () => {
-      if (chrome.runtime.lastError) {
+    chrome.tabs.sendMessage(tab.id, { action: "generate" }, (resp) => {
+    if (chrome.runtime.lastError) {
         resultDiv.textContent =
-          "Cannot reach content script: " + chrome.runtime.lastError.message;
-      }
+        "Cannot reach content script: " + chrome.runtime.lastError.message;
+        return;
+    }
+
+    // If we got an ack, we’re good — keep "Generating..." until result arrives
+    if (!resp || resp.ok !== true) {
+        resultDiv.textContent = "Could not start summarization (no ACK).";
+    }
     });
   });
 

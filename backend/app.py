@@ -63,10 +63,10 @@ def summarize_transcript(transcript: str) -> str:
 def extract_youtube_video_id(youtube_url: str) -> str:
     """
     Supports:
-      - https://www.youtube.com/watch?v=VIDEOID
-      - https://youtu.be/VIDEOID
-      - https://www.youtube.com/shorts/VIDEOID
-      - https://www.youtube.com/embed/VIDEOID
+    - https://www.youtube.com/watch?v=VIDEOID
+    - https://youtu.be/VIDEOID
+    - https://www.youtube.com/shorts/VIDEOID
+    - https://www.youtube.com/embed/VIDEOID
     """
     if not youtube_url or not isinstance(youtube_url, str):
         raise ValueError("youtube_url is required")

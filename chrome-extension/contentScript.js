@@ -3,11 +3,15 @@ console.log("YSummarize content script running on:", window.location.href);
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "ping") {
     sendResponse({ ok: true });
-    return;
+    return; // done
   }
 
   if (message.action === "generate") {
+    // IMPORTANT: immediately acknowledge so popup doesn't show a false error
+    sendResponse({ ok: true });
+
     generateSummary();
+    return; // done
   }
 });
 
