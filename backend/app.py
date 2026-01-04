@@ -28,34 +28,32 @@ def get_transcript(video_id: str) -> str:
 # ----------------------------
 # 2) Summarization setup + function
 # ----------------------------
-CHECKPOINT = "t5-small"  # safe for CPU; change later if needed
+CHECKPOINT = "facebook/bart-large-cnn"
+
 tokenizer = AutoTokenizer.from_pretrained(CHECKPOINT)
 model = AutoModelForSeq2SeqLM.from_pretrained(CHECKPOINT)
 
 def summarize_transcript(transcript: str) -> str:
-    # T5 requires the prefix:
-    text = "summarize: " + transcript.strip()
+    text = transcript.strip()  # NO "summarize: " prefix for BART
 
     inputs = tokenizer(
         text,
         return_tensors="pt",
-        max_length=1024,
+        max_length=1024,   # BART max input tokens
         truncation=True
     )
 
     summary_ids = model.generate(
-    **inputs,
-    max_new_tokens=180,
-    min_new_tokens=60,
-    num_beams=6,
-    length_penalty=1.0,
-    early_stopping=True,
-    no_repeat_ngram_size=4,
-)
-
+        **inputs,
+        num_beams=6,
+        max_new_tokens=180,
+        min_new_tokens=60,
+        length_penalty=1.0,
+        no_repeat_ngram_size=3,
+        early_stopping=True
+    )
 
     return tokenizer.decode(summary_ids[0], skip_special_tokens=True).strip()
-
 
 # ----------------------------
 # 3) Extract video id from YouTube URL
@@ -63,10 +61,10 @@ def summarize_transcript(transcript: str) -> str:
 def extract_youtube_video_id(youtube_url: str) -> str:
     """
     Supports:
-    - https://www.youtube.com/watch?v=VIDEOID
-    - https://youtu.be/VIDEOID
-    - https://www.youtube.com/shorts/VIDEOID
-    - https://www.youtube.com/embed/VIDEOID
+      - https://www.youtube.com/watch?v=VIDEOID
+      - https://youtu.be/VIDEOID
+      - https://www.youtube.com/shorts/VIDEOID
+      - https://www.youtube.com/embed/VIDEOID
     """
     if not youtube_url or not isinstance(youtube_url, str):
         raise ValueError("youtube_url is required")
