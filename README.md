@@ -36,6 +36,7 @@ Backend:
 
 - Flask
 
+- Pytortch
 
 ## How It Works
     1. The user opens a YouTube video.
@@ -51,16 +52,18 @@ youtube-transcript-summarizer/
 │
 ├── chrome-extension/
 │   ├── manifest.json
+│   ├── background.js
+│   ├── contentScript.js
 │   ├── popup.html
 │   ├── popup.js
-│   ├── styles.css
-│   └── icons/
+│   └── popup.css
+│
+├── venv/
+├── .gitignore/
 │
 ├── backend/
 │   ├── app.py
-│   ├── requirements.txt
-│   ├── summarizer.py
-│   └── utils/
+│   └──  requirements.txt
 │
 └── README.md
 ```
